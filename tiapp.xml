@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <id>org.rhok.alertMe</id>
+    <id>org.rhok.alertme</id>
     <name>AlertMe</name>
     <version>1.0</version>
     <publisher>not specified</publisher>
@@ -15,5 +15,5 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
-<guid>f1e6d737-194a-40fa-8a9a-c7722b94149f</guid>
+<guid>d7e560c5-1244-48f7-a78d-422a3b5b1ac3</guid>
 </ti:app>
