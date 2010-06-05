@@ -7,19 +7,19 @@
 #define _QUOTEME(x) #x
 #define STRING(x) _QUOTEME(x)
 
-NSString * const TI_APPLICATION_DEPLOYTYPE = @"__DEPLOYTYPE__";
-NSString * const TI_APPLICATION_ID = @"__APP_ID__";
-NSString * const TI_APPLICATION_PUBLISHER = @"__APP_PUBLISHER__";
-NSString * const TI_APPLICATION_URL = @"__APP_URL__";
-NSString * const TI_APPLICATION_NAME = @"__APP_NAME__";
-NSString * const TI_APPLICATION_VERSION = @"__APP_VERSION__";
-NSString * const TI_APPLICATION_DESCRIPTION = @"__APP_DESCRIPTION__";
-NSString * const TI_APPLICATION_COPYRIGHT = @"__APP_COPYRIGHT__";
-NSString * const TI_APPLICATION_GUID = @"__APP_GUID__";
-BOOL const TI_APPLICATION_ANALYTICS = __APP_ANALYTICS__;
+NSString * const TI_APPLICATION_DEPLOYTYPE = @"development";
+NSString * const TI_APPLICATION_ID = @"org.rhok.alertme";
+NSString * const TI_APPLICATION_PUBLISHER = @"not specified";
+NSString * const TI_APPLICATION_URL = @"not specified";
+NSString * const TI_APPLICATION_NAME = @"AlertMe";
+NSString * const TI_APPLICATION_VERSION = @"1.0";
+NSString * const TI_APPLICATION_DESCRIPTION = @"not specified";
+NSString * const TI_APPLICATION_COPYRIGHT = @"not specified";
+NSString * const TI_APPLICATION_GUID = @"d7e560c5-1244-48f7-a78d-422a3b5b1ac3";
+BOOL const TI_APPLICATION_ANALYTICS = true;
 
-#ifdef TARGET_IPHONE_SIMULATOR
-NSString * const TI_APPLICATION_RESOURCE_DIR = @"__APP_RESOURCE_DIR__";
+#ifdef DEBUG
+NSString * const TI_APPLICATION_RESOURCE_DIR = @"/Users/ssoper/workspace/AlertMe/build/iphone/build/Debug-iphonesimulator/AlertMe.app";
 #endif
 
 int main(int argc, char *argv[]) {

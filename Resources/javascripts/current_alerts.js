@@ -25,8 +25,8 @@ html +="</body></html>";
 var selectView = Titanium.UI.createWebView({
   top: 0,
   left: 0,
-  height: 50,
-  width: 'auto',
+  width: win.width,
+  height: (Ti.Platform.name != 'android' ? 44 : 48),
   html: html
 });
 
@@ -36,9 +36,9 @@ Titanium.App.addEventListener("set_category_value", function(ev){
 
 var data = [{title:'Loading...'}];
 var tableView = Titanium.UI.createTableView({
-top: 50,
-left: 0,
-data:data
+  top: 50,
+  left: 0,
+  data:data
 });
 
 //var rowWebView = Titanium.UI.createWebView({
