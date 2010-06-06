@@ -26,12 +26,135 @@ function wowIHateJSONP(r){
   }
   tableView.setData(data);
 }
+
+function getPhoto()
+{
+// shamelessly stolen from the KitchenSink example camera_file.js
+
+Titanium.Media.showCamera({
+
+	success:function(event)
+	{
+		var cropRect = event.cropRect;
+		var image = event.media;
+		
+		var f = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,'camera_photo.png');
+		f.write(image);
+		//win.backgroundImage = f.nativePath;
+        Titanium.API.info('Saving photo to: ' +Titanium.Filesystem.applicationDataDirectory + 'camera_photo.png');
+        return Titanium.Filesystem.applicationDataDirectory + 'camera_photo.png';
+	},
+	cancel:function()
+	{
+        return null;
+	},
+	error:function(error)
+	{
+		// create alert
+		var a = Titanium.UI.createAlertDialog({title:'Camera'});
+
+		// set message
+		if (error.code == Titanium.Media.NO_CAMERA)
+		{
+			a.setMessage('Device does not have video recording capabilities');
+		}
+		else
+		{
+			a.setMessage('Unexpected error: ' + error.code);
+		}
+
+		// show alert
+		a.show();
+        return null;
+	},
+	allowImageEditing:true
+});
+
+
+}
+
+function getLocation()
+{
+
+// shamelessly stolen from the KitchenSink example geolocation.js
+
+if (Titanium.Geolocation.locationServicesEnabled==false)
+{
+	Titanium.UI.createAlertDialog({title:'Alert Me', message:'Your device has geo turned off - turn it on.'}).show();
+}
+else
+{
+
+	//
+	//  SET ACCURACY - THE FOLLOWING VALUES ARE SUPPORTED
+	//
+	// Titanium.Geolocation.ACCURACY_BEST
+	// Titanium.Geolocation.ACCURACY_NEAREST_TEN_METERS
+	// Titanium.Geolocation.ACCURACY_HUNDRED_METERS
+	// Titanium.Geolocation.ACCURACY_KILOMETER
+	// Titanium.Geolocation.ACCURACY_THREE_KILOMETERS
+	//
+	Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
+
+
+
+	//
+	// GET CURRENT POSITION - THIS FIRES ONCE
+	//
+	Titanium.Geolocation.getCurrentPosition(function(e)
+	{
+		if (e.error)
+		{
+			Titanium.API.info( 'error: ' + JSON.stringify(e.error));
+			return;
+		}
+
+		var longitude = e.coords.longitude;
+		var latitude = e.coords.latitude;
+		var altitude = e.coords.altitude;
+		var heading = e.coords.heading;
+		var accuracy = e.coords.accuracy;
+		var speed = e.coords.speed;
+		var timestamp = e.coords.timestamp;
+		var altitudeAccuracy = e.coords.altitudeAccuracy;
+
+		//currentLocation.text = 'long:' + longitude + ' lat: ' + latitude;
+		currentLon = longitude;
+        currentLat = latitude;
+		Titanium.API.info('geo - current location: ' + new Date(timestamp) + ' long ' + longitude + ' lat ' + latitude + ' accuracy ' + accuracy);
+	});
+}
+	//
+
+
+}
+
+function sendPhoto()
+{
+  getLocation();
+  
+  var lat = currentLat;
+  var lon = currentLon;
+  
+    var file_location = getPhoto();
+    if (file_location)
+    {
+        // TODO: need to add CAP ID field into the EXIF metadata for the photo
+        // TODO: need to upload the photo from file_location to flickr or picasa or facebook, looks like Titanium has Facebook support built in.
+    }
+
+}
+
 function getAlerts(tableView){
-  // TODO: Get latitude and longitude from phone
-  var lat = 0;
-  var lon = 0;
+  // TODO: Get latitude and longitude from phone 
+  getLocation();
+  
+  var lat = currentLat;
+  var lon = currentLon;
 
   var xhr = Titanium.Network.createHTTPClient();
+
+
 
   xhr.onload = function() {
     Ti.API.info(this.status);
