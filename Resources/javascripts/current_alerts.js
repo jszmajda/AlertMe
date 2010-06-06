@@ -1,5 +1,6 @@
 Titanium.include('capalerts.js');
 
+var categoryFilter = "All";
 var win = Titanium.UI.currentWindow;
 
 var html = "<html><body bgcolor='#5a5c64'>";
@@ -23,22 +24,23 @@ html += "document.getElementById('category_select').onchange = function(){ Titan
 html += "</script>";
 html +="</body></html>";
 var selectView = Titanium.UI.createWebView({
-  top: 0,
-  left: 0,
+  top:    0,
+  left:   0,
   height: 50,
-  width: 'auto',
-  html: html
+  width:  'auto',
+  html:   html
 });
 
 Titanium.App.addEventListener("set_category_value", function(ev){
-  category_filter = ev.value;
+  categoryFilter = ev.value;
+  getAlerts(tableView, categoryFilter);
 });
 
 var data = [{title:'Loading...'}];
 var tableView = Titanium.UI.createTableView({
-top: 50,
-left: 0,
-data:data
+  top:  50,
+  left: 0,
+  data: data
 });
 
 //var rowWebView = Titanium.UI.createWebView({
@@ -53,4 +55,4 @@ data:data
 win.add(selectView);
 win.add(tableView);
 
-getAlerts(1,2,tableView);
+getAlerts(tableView, categoryFilter);
